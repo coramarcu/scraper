@@ -40,7 +40,9 @@ class ScraperObserver extends CrawlObserver
             return $node->attr('href');
         });
 
-        dd($links);
+        $normalisedLinks = normaliseUrls($links);
+
+        dd($links, $normalisedLinks);
 
     }
 
