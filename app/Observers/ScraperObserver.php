@@ -7,6 +7,7 @@ use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Log;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
+use Symfony\Component\DomCrawler\Crawler;
 
 class ScraperObserver extends CrawlObserver
 {
@@ -32,6 +33,15 @@ class ScraperObserver extends CrawlObserver
         ?string $linkText = null,
     ): void {
         Log::info("Crawled: {$url}");
+
+        $crawler = new Crawler((string) $response->getBody());
+
+        $links = $crawler->filter('div#js-results > div.finder-results > ul > li > div > a')->each(function (Crawler $node, $i) {
+            return $node->attr('href');
+        });
+
+        dd($links);
+
     }
 
     /*
