@@ -1,35 +1,27 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 
 defineProps({
-    canLogin: {
-        type: Boolean,
-    },
-    canRegister: {
-        type: Boolean,
-    },
-    laravelVersion: {
+    links: {
         type: String,
-        required: true,
-    },
-    phpVersion: {
-        type: String,
-        required: true,
+        required: false,
     },
 });
 
-function handleImageError() {
-    document.getElementById('screenshot-container')?.classList.add('!hidden');
-    document.getElementById('docs-card')?.classList.add('!row-span-1');
-    document.getElementById('docs-card-content')?.classList.add('!flex-row');
-    document.getElementById('background')?.classList.add('!hidden');
-}
 </script>
 
 <template>
     <Head title="Scraper app" />
 
-    <div class="flex items-center justify-center">
-        <h1>Scraper App</h1>
+    <div class="flex flex-col items-center justify-center">
+        <h1 class="text-xl mt-6 mb-10">
+            Scraper App
+        </h1>
+
+        <ul>
+            <li v-for="link in links">
+                {{ link }}
+            </li>
+        </ul>
     </div>
 </template>
