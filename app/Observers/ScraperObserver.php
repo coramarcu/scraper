@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Services\ScrapeService;
 use Spatie\Crawler\CrawlObservers\CrawlObserver;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Log;
@@ -42,7 +43,7 @@ class ScraperObserver extends CrawlObserver
 
         $normalisedLinks = normaliseUrls($links);
 
-        dd($links, $normalisedLinks);
+        Log::info("Links found:", $normalisedLinks);
 
     }
 
@@ -55,7 +56,7 @@ class ScraperObserver extends CrawlObserver
         ?UriInterface $foundOnUrl = null,
         ?string $linkText = null,
     ): void {
-        Log::error("Failed: {$url}");
+        Log::error("Failed: {$url} - " . $requestException->getMessage());
     }
 
     /*
